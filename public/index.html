@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript">
+
+			var websocket = new WebSocket('ws://localhost:4080');
+			websocket.onopen = function(evt) {
+				console.log("connection opened!");
+			};
+			websocket.onclose = function(evt) {
+				console.log("connection closed!");
+			};
+			websocket.onmessage = function(evt) {
+				console.log(evt);
+			};
+			websocket.onerror = function(evt) {
+				console.log("error: " + evt);
+			};
+
+		</script>
+	</head>
+	<body>
+		<div class="">
+			asdfasdf
+		</div>
+	</body>
+</html>
