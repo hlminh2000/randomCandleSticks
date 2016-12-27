@@ -3,27 +3,13 @@
 	<head>
 		<meta charset="utf-8">
 		<title></title>
-		<script type="text/javascript">
-
-			var websocket = new WebSocket('ws://localhost:4080');
-			websocket.onopen = function(evt) {
-				console.log("connection opened!");
-			};
-			websocket.onclose = function(evt) {
-				console.log("connection closed!");
-			};
-			websocket.onmessage = function(evt) {
-				console.log(evt);
-			};
-			websocket.onerror = function(evt) {
-				console.log("error: " + evt);
-			};
-
-		</script>
+		<link rel="stylesheet" href="/style.css">
+		<script type="text/javascript" src="libs/d3.min.js"></script>
+		<script type="text/javascript" src="libs/d3-scale.min.js"></script>
+		<script type="text/javascript" src="scripts.js"></script>
 	</head>
 	<body>
-		<div class="">
-			asdfasdf
+		<div id="chart">
 		</div>
 	</body>
 </html>

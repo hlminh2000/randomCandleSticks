@@ -1,10 +1,11 @@
-
-
-
+var	dataRetrievalService = require('./dataRetrievalService.js');
 
 var retrieveData = function(){
 	return new Promise(function(resolve, reject) {
-		resolve(Math.random());
+		dataRetrievalService.getLatestQuote()
+		.then((data)=>{
+			resolve(Math.random()<0.3 ? -Math.pow(Math.random(), 2) : Math.pow(Math.random(), 2));
+		});
 	});
 }
 
@@ -13,8 +14,8 @@ var retrieveData = function(){
 // or ws.upgradeReq.headers.cookie (see http://stackoverflow.com/a/16395220/151312)
 exports.setupSocket = function(ws){
 	ws.on('message', function incoming(message) {
-     console.log('received: %s', message);
-   });
+		console.log('received: %s', message);
+	});
 
 	setInterval(()=>{
 		retrieveData()

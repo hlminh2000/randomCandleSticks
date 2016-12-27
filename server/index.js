@@ -15,10 +15,8 @@ app.use(function (req, res) {
 });
 
 wss.on('connection', function connection(ws) {
-
-  var location = url.parse(ws.upgradeReq.url, true);
+	var location = url.parse(ws.upgradeReq.url, true);
 	socketInterface.setupSocket(ws);
-
 });
 
 server.on('request', app);
