@@ -20,3 +20,7 @@ body{
 	height: 50%;
 	border: solid 2px red;
 }*/
+
+#chart_div {
+    height: 500px;
+}
