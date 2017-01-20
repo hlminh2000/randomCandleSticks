@@ -4,7 +4,11 @@ var retrieveData = function(){
 	return new Promise(function(resolve, reject) {
 		dataRetrievalService.getLatestQuote()
 		.then((data)=>{
-			resolve(Math.random()<0.3 ? -Math.pow(Math.random(), 2) : Math.pow(Math.random(), 2));
+			resolve(
+                Math.random()<0.3
+                ? -Math.pow(Math.random(), 2)
+                : Math.pow(Math.random(), 2)
+            );
 		});
 	});
 }
@@ -23,5 +27,5 @@ exports.setupSocket = function(ws){
 			console.log(data);
 			ws.send(data.toString());
 		});
-	},1000)
+	}, 200)
 }

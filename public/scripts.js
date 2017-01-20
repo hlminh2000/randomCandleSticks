@@ -10,7 +10,7 @@ function main() {
 
 function setupSocket(){
     "use strict";
-	
+    
 //    var websocket = new WebSocket('ws://localhost:4080');
     var websocket = new WebSocket('wss://randomcandlestick.herokuapp.com');
 	var chartData = [
@@ -21,6 +21,7 @@ function setupSocket(){
 			closing	:	null,
 		}
 	];
+    window.socket = websocket;
 	// websocket.onopen = function(evt) {
 	// 	console.log("connection opened!");
 	// };
@@ -33,6 +34,7 @@ function setupSocket(){
 	websocket.onmessage = function(evt) {
 		// console.log(evt.data);
 		appendChart(evt.data);
+        if(window.onSocketData){window.onSocketData(evt.data);}
 		// console.log(JSON.stringify(chartData));
 	};
 
@@ -57,7 +59,7 @@ function setupSocket(){
 function renderChart(data){
     var chartData = data
         .filter( entry => {
-            return entry.period >= data.length - 20;
+            return entry.period >= data.length - 52;
         })
         .map( entry => {
             return [
@@ -66,7 +68,8 @@ function renderChart(data){
                 entry.opening, 
                 entry.closing , 
                 Math.max(entry.opening, entry.closing),
-//                getMovingAverage(entry, data, 52),
+                getMovingAverage(entry, data, 20),
+                getMovingAverage(entry, data, 10),
             ]
         });
     
@@ -74,10 +77,28 @@ function renderChart(data){
     
 
     var options = {
-        legend:'none',
+        title : 'Random Series',
+        legend: 'none',
+        seriesType: "candlesticks",
+        series: {
+            1: {type: "line"},
+            2: {type: "line"},
+        },
+        vAxis : {
+            viewWindow : {
+                max: chartData.filter((entry) => {
+                        return chartData.indexOf(entry) >= chartData.length - 20
+                    }).reduce((max, entry) => {
+                        return entry[4] > max ? entry[4] : max;
+                    }, 0) * 1.05,
+                min: chartData.reduce((min, entry) => {
+                    return entry[4] < min ? entry[4] : min;
+                }, 0) * 0.9,
+            }
+        }
     };
 
-    var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
+    var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
 
     chart.draw(data, options);
 
@@ -89,8 +110,8 @@ function getMovingAverage(currentEntry, dataSet, avgDuration){
             && dataSet.indexOf(entry) <= dataSet.indexOf(currentEntry);
     }).reduce((avgModel, entry) => {
         return {
-            sum :   avgModel.sum+entry.closing, 
-            leng:   avgModel.length+1
+            sum :   avgModel.sum+entry.opening, 
+            length:   avgModel.length+1
         };
     },{sum:0, length:0});
     return avgModel.sum / avgModel.length;
