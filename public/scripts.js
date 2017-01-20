@@ -11,7 +11,8 @@ function main() {
 function setupSocket(){
     "use strict";
 	
-    var websocket = new WebSocket('ws://localhost:4080');
+//    var websocket = new WebSocket('ws://localhost:4080');
+    var websocket = new WebSocket('ws://randomcandlestick.herokuapp.com');
 	var chartData = [
 		{
 			period	:	0,
