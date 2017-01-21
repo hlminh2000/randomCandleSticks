@@ -1,13 +1,12 @@
 var	dataRetrievalService = require('./dataRetrievalService.js');
+var	randgen = require('randgen');
 
 var retrieveData = function(){
 	return new Promise(function(resolve, reject) {
 		dataRetrievalService.getLatestQuote()
 		.then((data)=>{
 			resolve(
-                Math.random()<0.3
-                ? -Math.pow(Math.random(), 2)
-                : Math.pow(Math.random(), 2)
+               randgen.rnorm(0.01/30, 0.03/30)
             );
 		});
 	});
@@ -27,5 +26,5 @@ exports.setupSocket = function(ws){
 			console.log(data);
 			ws.send(data.toString());
 		});
-	}, 200)
+	}, 100)
 }
