@@ -11,8 +11,8 @@ function main() {
 function setupSocket(){
     "use strict";
 
-   var websocket = new WebSocket('ws://localhost:4080');
-   //  var websocket = new WebSocket('wss://randomcandlestick.herokuapp.com');
+   // var websocket = new WebSocket('ws://localhost:4080');
+    var websocket = new WebSocket('wss://randomcandlestick.herokuapp.com');
 	var chartData = [
 		{
 			period	:	0,
@@ -25,6 +25,7 @@ function setupSocket(){
 	// websocket.onopen = function(evt) {
 	// 	console.log("connection opened!");
 	// };
+	//vineet was here
 	// websocket.onclose = function(evt) {
 	// 	console.log("connection closed!");
 	// };
@@ -59,7 +60,8 @@ function setupSocket(){
 function renderChart(data){
     var chartData = data
         .filter( entry => {
-            return entry.period >= data.length - 30;
+			  return data.indexOf(entry) >= data.length - 52-1;
+            // return entry.period >= data.length - 52;
         })
         .map( entry => {
             return [
