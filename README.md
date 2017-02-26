@@ -4,7 +4,7 @@ A randomized candle stick charting random data from a rate of change population 
 
 This is a small project to experiment with Google chart and real-time update through websocket.
 
-A live version of this is hosted at: https://react-pong.herokuapp.com/
+A live version of this is hosted at: https://randomcandlestick.herokuapp.com/
 
 ### Features
 - Data resembling American stock market daily return data.
