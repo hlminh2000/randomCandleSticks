@@ -15,6 +15,7 @@ A live version of this is hosted at: https://randomcandlestick.herokuapp.com/
 
 ### Current Technical Limitations
 - Front-end: data extraction for charting is currently done directly on the full dataset received from the server. This causes performance issue over time as the dataset grows (#deathByBigO)
+	- Lesson learned: algorithm complexity matters!
 
 ### What's coming next
 - Front-end: resolve performance issue by operating on a separate array for charting
